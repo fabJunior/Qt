@@ -1,6 +1,8 @@
 #include <QApplication>
+#include <QPushButton>
 #include <QLineEdit>
 #include <QFormLayout>
+#include <QVBoxLayout>
 
 
 int main(int argc, char *argv[])
@@ -12,13 +14,20 @@ int main(int argc, char *argv[])
     QLineEdit *nom = new QLineEdit;
     QLineEdit *prenom = new QLineEdit;
     QLineEdit *age = new QLineEdit;
+    QPushButton *valider = new QPushButton("Valider");
 
-    QFormLayout *layout = new QFormLayout;
-    layout->addRow("Votre &nom", nom);
-    layout->addRow("Votre &prénom", prenom);
-    layout->addRow("Votre â&ge", age);
+    QVBoxLayout *cadre = new QVBoxLayout;
+    QFormLayout *formulaire = new QFormLayout;
+    formulaire->addRow("Votre &nom", nom);
+    formulaire->addRow("Votre &prénom", prenom);
+    formulaire->addRow("Votre â&ge", age);
 
-    fenetre.setLayout(layout);
+    cadre->addLayout(formulaire);
+
+    QWidget::connect(valider,SIGNAL(clicked()), &app,SLOT(quit()));
+    cadre->addWidget(valider);
+
+    fenetre.setLayout(cadre);
 
     fenetre.show();
 
