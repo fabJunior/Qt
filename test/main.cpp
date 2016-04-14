@@ -1,34 +1,23 @@
 #include <QApplication>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QFormLayout>
-#include <QVBoxLayout>
-
+#include <QtWidgets>
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
     QWidget fenetre;
+        QPushButton *bouton = new QPushButton("Ouvrir la fenêtre", &fenetre);
 
-    QLineEdit *nom = new QLineEdit;
-    QLineEdit *prenom = new QLineEdit;
-    QLineEdit *age = new QLineEdit;
-    QPushButton *valider = new QPushButton("Valider");
 
-    QVBoxLayout *cadre = new QVBoxLayout;
-    QFormLayout *formulaire = new QFormLayout;
-    formulaire->addRow("Votre &nom", nom);
-    formulaire->addRow("Votre &prénom", prenom);
-    formulaire->addRow("Votre â&ge", age);
+    QDialog secondeFenetre (&fenetre);
+        QVBoxLayout *layout = new QVBoxLayout;
+        QLabel *image = new QLabel(&secondeFenetre);
+        image->setPixmap(QPixmap("..\\test\\icone.png"));
+        layout->addWidget(image);
+        secondeFenetre.setLayout(layout);
 
-    cadre->addLayout(formulaire);
 
-    QWidget::connect(valider,SIGNAL(clicked()), &app,SLOT(quit()));
-    cadre->addWidget(valider);
-
-    fenetre.setLayout(cadre);
-
+    QWidget::connect(bouton, SIGNAL(clicked()), &secondeFenetre, SLOT(exec()));
     fenetre.show();
 
     return app.exec();
