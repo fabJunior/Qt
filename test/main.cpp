@@ -1,6 +1,7 @@
 #include <QApplication>
-#include <QPushButton>
-#include <QGridLayout>
+#include <QLineEdit>
+#include <QFormLayout>
+
 
 int main(int argc, char *argv[])
 {
@@ -8,15 +9,14 @@ int main(int argc, char *argv[])
 
     QWidget fenetre;
 
-    QGridLayout *layout = new QGridLayout;
+    QLineEdit *nom = new QLineEdit;
+    QLineEdit *prenom = new QLineEdit;
+    QLineEdit *age = new QLineEdit;
 
-    QPushButton *bouton1 = new QPushButton("Bonjour");
-    QPushButton *bouton2 = new QPushButton("les");
-    QPushButton *bouton3 = new QPushButton("Zéros");
-
-    layout->addWidget(bouton1,0,0);
-    layout->addWidget(bouton2,0,1);
-    layout->addWidget(bouton3,1,0,1,2);
+    QFormLayout *layout = new QFormLayout;
+    layout->addRow("Votre nom", nom);
+    layout->addRow("Votre prénom", prenom);
+    layout->addRow("Votre âge", age);
 
     fenetre.setLayout(layout);
 
