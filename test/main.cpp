@@ -14,9 +14,9 @@ int main(int argc, char *argv[])
     QLineEdit *age = new QLineEdit;
 
     QFormLayout *layout = new QFormLayout;
-    layout->addRow("Votre nom", nom);
-    layout->addRow("Votre prénom", prenom);
-    layout->addRow("Votre âge", age);
+    layout->addRow("Votre &nom", nom);
+    layout->addRow("Votre &prénom", prenom);
+    layout->addRow("Votre â&ge", age);
 
     fenetre.setLayout(layout);
 
