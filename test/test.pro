@@ -1,5 +1,9 @@
 QT += widgets
 SOURCES += \
-    main.cpp
+    main.cpp \
+    fenprincipale.cpp \
+    fencodegenere.cpp
 
-HEADERS +=
+HEADERS += \
+    fenprincipale.h \
+    fencodegenere.h
