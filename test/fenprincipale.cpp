@@ -24,18 +24,19 @@ FenPrincipale::FenPrincipale()
     QGroupBox *groupOpt = new QGroupBox("Options");
     groupOpt->setLayout(optionsLayout);
 
-    m_AjoutComm = new QCheckBox("Ajouter des commentaires");
     m_Auteur = new QLineEdit;
     m_DateCreation = new QDateEdit;
+    m_DateCreation->setDate(QDate::currentDate());
     m_RoleClass = new QTextEdit;
 
     QFormLayout *comLayout = new QFormLayout;
-    comLayout->addRow(m_AjoutComm);
     comLayout->addRow("&Auteur :", m_Auteur);
     comLayout->addRow("Da&te de création :", m_DateCreation);
     comLayout->addRow("&Rôle de la classe :", m_RoleClass);
 
-    QGroupBox *groupCom = new QGroupBox;
+    QGroupBox *groupCom = new QGroupBox("Ajouter des commentaires");
+    groupCom->setCheckable(true);
+    groupCom->setChecked(false);
     groupCom->setLayout(comLayout);
 
     m_Generer = new QPushButton("Générer !");
@@ -55,6 +56,4 @@ FenPrincipale::FenPrincipale()
     setLayout(layoutPrincipal);
 
     resize(390,480);
-
-    //setFixedSize(370,480);
 }
