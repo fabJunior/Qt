@@ -54,5 +54,7 @@ FenPrincipale::FenPrincipale()
 
     setLayout(layoutPrincipal);
 
+    resize(390,480);
+
     //setFixedSize(370,480);
 }
