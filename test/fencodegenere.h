@@ -1,11 +1,18 @@
 #ifndef FENCODEGENERE_H
 #define FENCODEGENERE_H
 
+#include <QtWidgets>
 
-class FenCodeGenere
+class FenCodeGenere : public QDialog
 {
-public:
-    FenCodeGenere();
+    public:
+        FenCodeGenere(QString &code, QWidget *parent);
+
+    private:
+
+        QTextEdit *m_codeGenere;
+        QPushButton *m_fermer;
+
 };
 
 #endif // FENCODEGENERE_H

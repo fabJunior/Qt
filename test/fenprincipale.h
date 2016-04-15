@@ -10,6 +10,9 @@ class FenPrincipale : public QWidget
     public:
     FenPrincipale();
 
+    public slots:
+    void genererCode();
+
     private:
     QLineEdit *m_NomClass;
     QLineEdit *m_ClassMere;
@@ -18,7 +21,8 @@ class FenPrincipale : public QWidget
     QCheckBox *m_GenererConstruct;
     QCheckBox *m_GenererDestruct;
 
-    QCheckBox *m_AjoutComm;
+    QGroupBox *m_groupCom;
+
     QLineEdit *m_Auteur;
     QDateEdit *m_DateCreation;
     QTextEdit *m_RoleClass;
