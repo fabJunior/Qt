@@ -1,5 +1,6 @@
 #include "fenprincipale.h"
 #include "fencodegenere.h"
+#include "fenajoutattribut.h"
 #include "attribut.h"
 
 FenPrincipale::FenPrincipale()
@@ -93,6 +94,8 @@ FenPrincipale::FenPrincipale()
         attributs->setHorizontalHeaderLabels(headers);
 
         QPushButton *ajouterAtt = new QPushButton("Ajouter un attribut");
+        FenAjoutAttribut *fenAtt = new FenAjoutAttribut(this);
+        connect(ajouterAtt,SIGNAL(clicked(bool)),fenAtt,SLOT(exec()));
 
         QHBoxLayout *boutonsAtt = new QHBoxLayout;
         boutonsAtt->setAlignment(Qt::AlignRight);

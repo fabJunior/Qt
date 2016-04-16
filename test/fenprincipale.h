@@ -8,31 +8,31 @@ class FenPrincipale : public QWidget
     Q_OBJECT
 
     public:
-    FenPrincipale();
+        FenPrincipale();
 
     public slots:
-    void genererCode();
-    void actualiserHeader(QString);
+        void genererCode();
+        void actualiserHeader(QString);
 
     private:
-    QLineEdit *nomClass;
-    QLineEdit *classMere;
+        QLineEdit *nomClass;
+        QLineEdit *classMere;
 
-    QCheckBox *protect;
-    QLineEdit *header;
-    QCheckBox *genererConstruct;
-    QCheckBox *genererDestruct;
+        QCheckBox *protect;
+        QLineEdit *header;
+        QCheckBox *genererConstruct;
+        QCheckBox *genererDestruct;
 
-    QGroupBox *groupCom;
+        QGroupBox *groupCom;
 
-    QLineEdit *auteur;
-    QDateEdit *dateCreation;
-    QTextEdit *roleClass;
+        QLineEdit *auteur;
+        QDateEdit *dateCreation;
+        QTextEdit *roleClass;
 
-    QTableWidget *attributs;
+        QTableWidget *attributs;
 
-    QPushButton *generer;
-    QPushButton *quitter;
+        QPushButton *generer;
+        QPushButton *quitter;
 
 };
 
