@@ -5,8 +5,13 @@
 
 class FenAjoutAttribut : public QDialog
 {
+    Q_OBJECT
+
     public:
         FenAjoutAttribut(QWidget *parent);
+
+    public slots:
+        void envoyerAttribut();
 
     private:
         QLineEdit *m_Nom;

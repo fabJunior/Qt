@@ -1,6 +1,6 @@
 #include "attribut.h"
 
-attribut::attribut(QString nomAtt,
+Attribut::attribut(QString nomAtt,
                    QString type,
                    bool bAsc,
                    QString asc,
@@ -16,58 +16,58 @@ attribut::attribut(QString nomAtt,
 
 }
 
-attribut::~attribut()
+Attribut::~attribut()
 {
 
 }
 
-void attribut::setNomAtt(QString newNom){
+void Attribut::setNomAtt(QString newNom){
     m_NomAtt = newNom;
 }
 
-QString attribut::nomAtt(){
+QString Attribut::nomAtt(){
     return m_NomAtt;
 }
 
-void attribut::setType(QString type){
+void Attribut::setType(QString type){
     m_Type = type;
 }
 
-QString attribut::type(){
+QString Attribut::type(){
     return m_Type;
 }
 
-void attribut::setBAsc(bool bAsc){
+void Attribut::setBAsc(bool bAsc){
     m_BAsc = bAsc;
 }
 
-bool attribut::bAsc(){
+bool Attribut::bAsc(){
     return m_BAsc;
 }
 
 
-void attribut::setAsc(QString asc){
+void Attribut::setAsc(QString asc){
     m_Asc = asc;
 }
 
-QString attribut::asc(){
+QString Attribut::asc(){
     return m_Asc;
 }
 
 
-void attribut::setBSetter(bool bSetter){
+void Attribut::setBSetter(bool bSetter){
     m_BSetter = bSetter;
 }
 
-bool attribut::bSetter(){
+bool Attribut::bSetter(){
     return m_BSetter;
 }
 
 
-void attribut::setSetter(QString setter){
+void Attribut::setSetter(QString setter){
     m_Setter = setter;
 }
 
-QString attribut::setter(){
+QString Attribut::setter(){
     return m_Setter;
 }

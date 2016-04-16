@@ -3,7 +3,7 @@
 
 #include <QString>
 
-class attribut
+class Attribut
 {
     public:
     attribut(QString nomAtt,

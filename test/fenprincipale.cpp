@@ -84,7 +84,7 @@ FenPrincipale::FenPrincipale()
 
 
     QWidget *pageAttributs = new QWidget;
-    tab->addTab(pageAttributs,"Atributs");
+    tab->addTab(pageAttributs,"Attributs");
 
     //PAGE 2
 
