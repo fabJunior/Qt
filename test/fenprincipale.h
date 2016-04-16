@@ -29,6 +29,8 @@ class FenPrincipale : public QWidget
     QDateEdit *dateCreation;
     QTextEdit *roleClass;
 
+    QTableWidget *attributs;
+
     QPushButton *generer;
     QPushButton *quitter;
 

@@ -6,11 +6,19 @@
 class attribut
 {
     public:
-    attribut();
+    attribut(QString nomAtt,
+             QString type,
+             bool bAsc = false,
+             QString asc = NULL,
+             bool bSetter = false,
+             QString setter = NULL);
     virtual ~attribut();
 
     void setNomAtt(QString newNom);
     QString nomAtt();
+
+    void setType(QString type);
+    QString type();
 
     void setBAsc(bool bAsc);
     bool bAsc();
@@ -24,16 +32,13 @@ class attribut
     void setSetter(QString setter);
     QString setter();
 
-    void setType(QString type);
-    QString type();
-
     private:
     QString m_NomAtt;
+    QString m_Type;
     bool m_BAsc;
     QString m_Asc;
     bool m_BSetter;
     QString m_Setter;
-    QString m_Type;
 };
 
 #endif // ATTRIBUT_H

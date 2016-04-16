@@ -1,6 +1,17 @@
 #include "attribut.h"
 
-attribut::attribut()
+attribut::attribut(QString nomAtt,
+                   QString type,
+                   bool bAsc,
+                   QString asc,
+                   bool bSetter,
+                   QString setter) :
+                        m_NomAtt(nomAtt),
+                        m_Type(type),
+                        m_BAsc(bAsc),
+                        m_Asc(asc),
+                        m_BSetter(bSetter),
+                        m_Setter(setter)
 {
 
 }
@@ -16,6 +27,14 @@ void attribut::setNomAtt(QString newNom){
 
 QString attribut::nomAtt(){
     return m_NomAtt;
+}
+
+void attribut::setType(QString type){
+    m_Type = type;
+}
+
+QString attribut::type(){
+    return m_Type;
 }
 
 void attribut::setBAsc(bool bAsc){
@@ -51,12 +70,4 @@ void attribut::setSetter(QString setter){
 
 QString attribut::setter(){
     return m_Setter;
-}
-
-void attribut::setType(QString type){
-    m_Type = type;
-}
-
-QString attribut::type(){
-    return m_Type;
 }

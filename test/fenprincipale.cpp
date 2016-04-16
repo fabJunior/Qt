@@ -1,5 +1,6 @@
 #include "fenprincipale.h"
 #include "fencodegenere.h"
+#include "attribut.h"
 
 FenPrincipale::FenPrincipale()
 {
@@ -80,11 +81,37 @@ FenPrincipale::FenPrincipale()
         //setLayout(layoutPrincipal);
         pageDefOptCom->setLayout(layoutPrincipal);
 
-     QVBoxLayout *mainLayout = new QVBoxLayout;
-     mainLayout->addWidget(tab);
-     mainLayout->addLayout(boutons);
 
-     setLayout(mainLayout);
+    QWidget *pageAttributs = new QWidget;
+    tab->addTab(pageAttributs,"Atributs");
+
+    //PAGE 2
+
+        QStringList headers;
+        headers <<"Attribut" << "Modifier" << "Supprimer";
+        attributs = new QTableWidget(0,3);
+        attributs->setHorizontalHeaderLabels(headers);
+
+        QPushButton *ajouterAtt = new QPushButton("Ajouter un attribut");
+
+        QHBoxLayout *boutonsAtt = new QHBoxLayout;
+        boutonsAtt->setAlignment(Qt::AlignRight);
+        boutonsAtt->addWidget(ajouterAtt);
+
+        QVBoxLayout *attLayout = new QVBoxLayout;
+        attLayout->addWidget(attributs);
+        attLayout->addLayout(boutonsAtt);
+        pageAttributs->setLayout(attLayout);
+
+
+
+
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(tab);
+    mainLayout->addLayout(boutons);
+
+    setLayout(mainLayout);
 
     //paramètres de la fenêtre
     setWindowTitle("Zero Class Generator");
