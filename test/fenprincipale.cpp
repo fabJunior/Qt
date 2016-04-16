@@ -3,69 +3,100 @@
 
 FenPrincipale::FenPrincipale()
 {
-    m_NomClass = new QLineEdit;
-    m_ClassMere = new QLineEdit;
+    //Box DEF
+    nomClass = new QLineEdit;
+    classMere = new QLineEdit;
 
     QFormLayout *definitionLayout = new QFormLayout;
-    definitionLayout->addRow("&Nom :", m_NomClass);
-    definitionLayout->addRow("Classe &mère :", m_ClassMere);
+    definitionLayout->addRow("&Nom :", nomClass);
+    definitionLayout->addRow("Classe &mère :", classMere);
 
     QGroupBox *groupDef = new QGroupBox("Définition de la classe");
     groupDef->setLayout(definitionLayout);
 
-    m_Protect = new QCheckBox("Protéger le &header contre les inclusions multiples");
-    m_GenererConstruct = new QCheckBox("Générer un &constructeur par défaut");
-    m_GenererDestruct = new QCheckBox("Générer un &destructeur");
+    //Box OPTIONS
+    protect = new QCheckBox("Protéger le &header contre les inclusions multiples");
+    protect->setChecked(true);
+
+    QLabel *fleche = new QLabel;
+    fleche->setPixmap(QPixmap("..\\test\\arrow.png").scaled(30,30));
+    header = new QLineEdit();
+
+    QHBoxLayout *headerLayout = new QHBoxLayout;
+    headerLayout->addWidget(fleche);
+    headerLayout->addWidget(header);
+
+    connect(protect,SIGNAL(clicked(bool)),header,SLOT(setEnabled(bool)));
+    connect(protect,SIGNAL(clicked(bool)),fleche,SLOT(setEnabled(bool)));
+
+    genererConstruct = new QCheckBox("Générer un &constructeur par défaut");
+    genererDestruct = new QCheckBox("Générer un &destructeur");
 
     QVBoxLayout *optionsLayout = new QVBoxLayout;
-    optionsLayout->addWidget(m_Protect);
-    optionsLayout->addWidget(m_GenererConstruct);
-    optionsLayout->addWidget(m_GenererDestruct);
+    optionsLayout->addWidget(protect);
+    optionsLayout->addLayout(headerLayout);
+    optionsLayout->addWidget(genererConstruct);
+    optionsLayout->addWidget(genererDestruct);
 
     QGroupBox *groupOpt = new QGroupBox("Options");
     groupOpt->setLayout(optionsLayout);
 
-    m_Auteur = new QLineEdit;
-    m_DateCreation = new QDateEdit;
-    m_DateCreation->setDate(QDate::currentDate());
-    m_RoleClass = new QTextEdit;
+    //Box Com
+    auteur = new QLineEdit;
+    dateCreation = new QDateEdit;
+    dateCreation->setDate(QDate::currentDate());
+    roleClass = new QTextEdit;
 
     QFormLayout *comLayout = new QFormLayout;
-    comLayout->addRow("&Auteur :", m_Auteur);
-    comLayout->addRow("Da&te de création :", m_DateCreation);
-    comLayout->addRow("&Rôle de la classe :", m_RoleClass);
+    comLayout->addRow("&Auteur :", auteur);
+    comLayout->addRow("Da&te de création :", dateCreation);
+    comLayout->addRow("&Rôle de la classe :", roleClass);
 
-    m_groupCom = new QGroupBox("Ajouter des commentaires");
-    m_groupCom->setCheckable(true);
-    m_groupCom->setChecked(false);
-    m_groupCom->setLayout(comLayout);
+    groupCom = new QGroupBox("Ajouter des commentaires");
+    groupCom->setCheckable(true);
+    groupCom->setChecked(false);
+    groupCom->setLayout(comLayout);
 
-    m_Generer = new QPushButton("Générer !");
-    m_Quitter = new QPushButton("Quitter");
+    //Boutons
+    generer = new QPushButton("Générer !");
+    quitter = new QPushButton("Quitter");
 
     QHBoxLayout *boutons = new QHBoxLayout;
     boutons->setAlignment(Qt::AlignRight);
-    boutons->addWidget(m_Generer);
-    boutons->addWidget(m_Quitter);
+    boutons->addWidget(generer);
+    boutons->addWidget(quitter);
 
+    //Layout principal
     QVBoxLayout *layoutPrincipal = new QVBoxLayout;
     layoutPrincipal->addWidget(groupDef);
     layoutPrincipal->addWidget(groupOpt);
-    layoutPrincipal->addWidget(m_groupCom);
+    layoutPrincipal->addWidget(groupCom);
     layoutPrincipal->addLayout(boutons);
 
     setLayout(layoutPrincipal);
 
+    //paramètres de la fenêtre
     setWindowTitle("Zero Class Generator");
     setWindowIcon(QIcon("..\\test\\icone.png"));
     resize(390,480);
 
-    connect(m_Quitter, SIGNAL(clicked()), qApp, SLOT(quit()));
-    connect(m_Generer, SIGNAL(clicked(bool)), this, SLOT(genererCode()));
+    connect(nomClass,SIGNAL(textChanged(QString)),this,SLOT(actualiserHeader(QString)));
+
+    connect(quitter, SIGNAL(clicked()), qApp, SLOT(quit()));
+    connect(generer, SIGNAL(clicked()), this, SLOT(genererCode()));
+}
+
+void FenPrincipale::actualiserHeader(QString newNomClass){
+    static QString oldNomClass;
+
+    oldNomClass.isEmpty() ? header->setText("HEADER_" + newNomClass) :
+                               header->setText(header->text().replace(oldNomClass,newNomClass));
+
+    oldNomClass = newNomClass;
 }
 
 void FenPrincipale::genererCode(){
-    if(m_NomClass->text().isEmpty()){
+    if(nomClass->text().isEmpty()){
         qWarning("Aucun nom donné à la classe");
         QMessageBox::critical(this, "Erreur", "Veuillez entrer au moins un nom de classe");
         return;
@@ -73,37 +104,37 @@ void FenPrincipale::genererCode(){
 
     QString code = "";
 
-    if(m_groupCom->isChecked()){
-        code += "/*\nAuteur : " + m_Auteur->text() +
-                "\nDate de création : " +  m_DateCreation->date().toString() +
-                "\n\nRôle :\n" + m_RoleClass->toPlainText() + "\n*/\n\n\n";
+    if(groupCom->isChecked()){
+        code += "/*\nAuteur : " + auteur->text() +
+                "\nDate de création : " +  dateCreation->date().toString() +
+                "\n\nRôle :\n" + roleClass->toPlainText() + "\n*/\n\n\n";
     }
 
-    if(m_Protect->isChecked()){
-        code += "#ifndef HEADER_" + m_NomClass->text().toUpper();
-        code += "\n#define HEADER_" + m_NomClass->text().toUpper();
+    if(protect->isChecked()){
+        code += "#ifndef HEADER_" + nomClass->text().toUpper();
+        code += "\n#define HEADER_" + nomClass->text().toUpper();
         code += "\n\n\n";
     }
 
-    code += "class " + m_NomClass->text();
-    if(!m_ClassMere->text().isEmpty()){
-        code += " : public " + m_ClassMere->text();
+    code += "class " + nomClass->text();
+    if(!classMere->text().isEmpty()){
+        code += " : public " + classMere->text();
     }
 
     code += "\n{\n";
     code += "    public:\n    ";
 
-    if(m_GenererConstruct->isChecked()){
-        code += "    " + m_NomClass->text() + "();\n    ";
+    if(genererConstruct->isChecked()){
+        code += "    " + nomClass->text() + "();\n    ";
     }
 
-    if(m_GenererDestruct->isChecked()){
-        code += "    virtual ~" + m_NomClass->text() + "();\n    ";
+    if(genererDestruct->isChecked()){
+        code += "    virtual ~" + nomClass->text() + "();\n    ";
     }
 
     code += "\n    \n    protected :\n    \n    \n    private:\n    \n};";
 
-    if(m_Protect->isChecked()){
+    if(protect->isChecked()){
         code += "\n\n#endif";
     }
 

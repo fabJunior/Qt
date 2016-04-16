@@ -12,23 +12,25 @@ class FenPrincipale : public QWidget
 
     public slots:
     void genererCode();
+    void actualiserHeader(QString);
 
     private:
-    QLineEdit *m_NomClass;
-    QLineEdit *m_ClassMere;
+    QLineEdit *nomClass;
+    QLineEdit *classMere;
 
-    QCheckBox *m_Protect;
-    QCheckBox *m_GenererConstruct;
-    QCheckBox *m_GenererDestruct;
+    QCheckBox *protect;
+    QLineEdit *header;
+    QCheckBox *genererConstruct;
+    QCheckBox *genererDestruct;
 
-    QGroupBox *m_groupCom;
+    QGroupBox *groupCom;
 
-    QLineEdit *m_Auteur;
-    QDateEdit *m_DateCreation;
-    QTextEdit *m_RoleClass;
+    QLineEdit *auteur;
+    QDateEdit *dateCreation;
+    QTextEdit *roleClass;
 
-    QPushButton *m_Generer;
-    QPushButton *m_Quitter;
+    QPushButton *generer;
+    QPushButton *quitter;
 
 };
 
