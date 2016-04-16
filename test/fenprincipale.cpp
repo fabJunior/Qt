@@ -3,77 +3,88 @@
 
 FenPrincipale::FenPrincipale()
 {
-    //Box DEF
-    nomClass = new QLineEdit;
-    classMere = new QLineEdit;
+    QTabWidget *tab = new QTabWidget;
+    QWidget *pageDefOptCom = new QWidget;
+    tab->addTab(pageDefOptCom,"Général");
 
-    QFormLayout *definitionLayout = new QFormLayout;
-    definitionLayout->addRow("&Nom :", nomClass);
-    definitionLayout->addRow("Classe &mère :", classMere);
+    //PAGE 1
+        //Box DEF
+        nomClass = new QLineEdit;
+        classMere = new QLineEdit;
 
-    QGroupBox *groupDef = new QGroupBox("Définition de la classe");
-    groupDef->setLayout(definitionLayout);
+        QFormLayout *definitionLayout = new QFormLayout;
+        definitionLayout->addRow("&Nom :", nomClass);
+        definitionLayout->addRow("Classe &mère :", classMere);
 
-    //Box OPTIONS
-    protect = new QCheckBox("Protéger le &header contre les inclusions multiples");
-    protect->setChecked(true);
+        QGroupBox *groupDef = new QGroupBox("Définition de la classe");
+        groupDef->setLayout(definitionLayout);
 
-    QLabel *fleche = new QLabel;
-    fleche->setPixmap(QPixmap("..\\test\\arrow.png").scaled(30,30));
-    header = new QLineEdit();
+        //Box OPTIONS
+        protect = new QCheckBox("Protéger le &header contre les inclusions multiples");
+        protect->setChecked(true);
 
-    QHBoxLayout *headerLayout = new QHBoxLayout;
-    headerLayout->addWidget(fleche);
-    headerLayout->addWidget(header);
+        QLabel *fleche = new QLabel;
+        fleche->setPixmap(QPixmap("..\\test\\arrow.png").scaled(30,30));
+        header = new QLineEdit();
 
-    connect(protect,SIGNAL(clicked(bool)),header,SLOT(setVisible(bool)));
-    connect(protect,SIGNAL(clicked(bool)),fleche,SLOT(setVisible(bool)));
+        QHBoxLayout *headerLayout = new QHBoxLayout;
+        headerLayout->addWidget(fleche);
+        headerLayout->addWidget(header);
 
-    genererConstruct = new QCheckBox("Générer un &constructeur par défaut");
-    genererDestruct = new QCheckBox("Générer un &destructeur");
+        connect(protect,SIGNAL(clicked(bool)),header,SLOT(setVisible(bool)));
+        connect(protect,SIGNAL(clicked(bool)),fleche,SLOT(setVisible(bool)));
 
-    QVBoxLayout *optionsLayout = new QVBoxLayout;
-    optionsLayout->addWidget(protect);
-    optionsLayout->addLayout(headerLayout);
-    optionsLayout->addWidget(genererConstruct);
-    optionsLayout->addWidget(genererDestruct);
+        genererConstruct = new QCheckBox("Générer un &constructeur par défaut");
+        genererDestruct = new QCheckBox("Générer un &destructeur");
 
-    QGroupBox *groupOpt = new QGroupBox("Options");
-    groupOpt->setLayout(optionsLayout);
+        QVBoxLayout *optionsLayout = new QVBoxLayout;
+        optionsLayout->addWidget(protect);
+        optionsLayout->addLayout(headerLayout);
+        optionsLayout->addWidget(genererConstruct);
+        optionsLayout->addWidget(genererDestruct);
 
-    //Box Com
-    auteur = new QLineEdit;
-    dateCreation = new QDateEdit;
-    dateCreation->setDate(QDate::currentDate());
-    roleClass = new QTextEdit;
+        QGroupBox *groupOpt = new QGroupBox("Options");
+        groupOpt->setLayout(optionsLayout);
 
-    QFormLayout *comLayout = new QFormLayout;
-    comLayout->addRow("&Auteur :", auteur);
-    comLayout->addRow("Da&te de création :", dateCreation);
-    comLayout->addRow("&Rôle de la classe :", roleClass);
+        //Box Com
+        auteur = new QLineEdit;
+        dateCreation = new QDateEdit;
+        dateCreation->setDate(QDate::currentDate());
+        roleClass = new QTextEdit;
 
-    groupCom = new QGroupBox("Ajouter des commentaires");
-    groupCom->setCheckable(true);
-    groupCom->setChecked(false);
-    groupCom->setLayout(comLayout);
+        QFormLayout *comLayout = new QFormLayout;
+        comLayout->addRow("&Auteur :", auteur);
+        comLayout->addRow("Da&te de création :", dateCreation);
+        comLayout->addRow("&Rôle de la classe :", roleClass);
 
-    //Boutons
-    generer = new QPushButton("Générer !");
-    quitter = new QPushButton("Quitter");
+        groupCom = new QGroupBox("Ajouter des commentaires");
+        groupCom->setCheckable(true);
+        groupCom->setChecked(false);
+        groupCom->setLayout(comLayout);
 
-    QHBoxLayout *boutons = new QHBoxLayout;
-    boutons->setAlignment(Qt::AlignRight);
-    boutons->addWidget(generer);
-    boutons->addWidget(quitter);
+        //Boutons
+        generer = new QPushButton("Générer !");
+        quitter = new QPushButton("Quitter");
 
-    //Layout principal
-    QVBoxLayout *layoutPrincipal = new QVBoxLayout;
-    layoutPrincipal->addWidget(groupDef);
-    layoutPrincipal->addWidget(groupOpt);
-    layoutPrincipal->addWidget(groupCom);
-    layoutPrincipal->addLayout(boutons);
+        QHBoxLayout *boutons = new QHBoxLayout;
+        boutons->setAlignment(Qt::AlignRight);
+        boutons->addWidget(generer);
+        boutons->addWidget(quitter);
 
-    setLayout(layoutPrincipal);
+        //Layout principal
+        QVBoxLayout *layoutPrincipal = new QVBoxLayout;
+        layoutPrincipal->addWidget(groupDef);
+        layoutPrincipal->addWidget(groupOpt);
+        layoutPrincipal->addWidget(groupCom);
+
+        //setLayout(layoutPrincipal);
+        pageDefOptCom->setLayout(layoutPrincipal);
+
+     QVBoxLayout *mainLayout = new QVBoxLayout;
+     mainLayout->addWidget(tab);
+     mainLayout->addLayout(boutons);
+
+     setLayout(mainLayout);
 
     //paramètres de la fenêtre
     setWindowTitle("Zero Class Generator");
