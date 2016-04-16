@@ -26,8 +26,8 @@ FenPrincipale::FenPrincipale()
     headerLayout->addWidget(fleche);
     headerLayout->addWidget(header);
 
-    connect(protect,SIGNAL(clicked(bool)),header,SLOT(setEnabled(bool)));
-    connect(protect,SIGNAL(clicked(bool)),fleche,SLOT(setEnabled(bool)));
+    connect(protect,SIGNAL(clicked(bool)),header,SLOT(setVisible(bool)));
+    connect(protect,SIGNAL(clicked(bool)),fleche,SLOT(setVisible(bool)));
 
     genererConstruct = new QCheckBox("Générer un &constructeur par défaut");
     genererDestruct = new QCheckBox("Générer un &destructeur");
