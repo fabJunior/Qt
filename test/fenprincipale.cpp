@@ -19,4 +19,10 @@ FenPrincipale::FenPrincipale()
     QMenu *menuAffichage = menuBar()->addMenu("&Affichage");
 
 
+    // Création de la barre d'outils
+    QToolBar *toolBarFichier = addToolBar("Fichier");
+    toolBarFichier->addAction(actionQuitter);
+
+    QFontComboBox *choixPolice = new QFontComboBox;
+    toolBarFichier->addWidget(choixPolice);
 }
