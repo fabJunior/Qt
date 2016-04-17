@@ -77,9 +77,9 @@ void FenAjoutAttribut::reset(){
 
     m_BAsc->setChecked(true);
     m_Asc->setText("");
-    m_Asc->setEnabled(True);
+    m_Asc->setEnabled(true);
 
     m_BSetter->setChecked(true);
     m_Setter->setText("");
-    m_Setter->setEnabled(True);
+    m_Setter->setEnabled(true);
 }
