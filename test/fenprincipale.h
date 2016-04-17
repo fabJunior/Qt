@@ -10,11 +10,15 @@ class FenPrincipale : public QWidget
 
     public:
         FenPrincipale();
-        void recupererAttribut(Attribut *att);
+        void recupererAttribut(Attribut att);
+        void updateAttribut(int row, Attribut att);
 
     public slots:
         void genererCode();
         void actualiserHeader(QString);
+        void modifSuppAttribut(int row, int col);
+        void ouvrirFenAjout();
+        void ouvrirFenAjout(Attribut att, int row);
 
     private:
         QLineEdit *nomClass;

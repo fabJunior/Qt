@@ -9,7 +9,7 @@ class FenAjoutAttribut : public QDialog
     Q_OBJECT
 
     public:
-        FenAjoutAttribut(FenPrincipale *parent);
+        FenAjoutAttribut(FenPrincipale *parent, Attribut att, int row);
 
     public slots:
         void envoyerAttribut();

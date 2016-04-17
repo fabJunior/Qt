@@ -2,8 +2,12 @@
 #include "attribut.h"
 #include "fenprincipale.h"
 
-FenAjoutAttribut::FenAjoutAttribut(FenPrincipale *parent) : QDialog(parent), m_Parent(parent)
+static int attRow;
+
+FenAjoutAttribut::FenAjoutAttribut(FenPrincipale *parent, Attribut att, int row) : QDialog(parent), m_Parent(parent)
 {
+    attRow = row;
+
     m_Nom = new QLineEdit;
     m_Type = new QLineEdit;
 
@@ -19,7 +23,14 @@ FenAjoutAttribut::FenAjoutAttribut(FenPrincipale *parent) : QDialog(parent), m_P
     m_Setter->setPlaceholderText("Nom du setter de l'attribut");
     connect(m_BSetter,SIGNAL(clicked(bool)),m_Setter,SLOT(setEnabled(bool)));
 
-
+    if(row != -1){
+        m_Nom->text() = att.nomAtt();
+        m_Type->text() = att.type();
+        m_BAsc->setChecked(att.bAsc());
+        m_Asc->text() = att.asc();
+        m_BSetter->setChecked(att.bSetter());
+        m_Setter->text() = att.setter();
+    }
 
     QFormLayout *formAtt = new QFormLayout;
     formAtt->addRow("Nom de l'attribut :",m_Nom);
@@ -64,7 +75,12 @@ void FenAjoutAttribut::envoyerAttribut(){
     }
 
     Attribut att(m_Nom->text(),m_Type->text());
-    m_Parent->recupererAttribut(&att);
+    if(row =! -1){
+        m_Parent->updateAttribut(row,att);
+    }else{
+        m_Parent->recupererAttribut(att);
+    }
+
 
     reset();
 

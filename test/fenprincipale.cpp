@@ -3,6 +3,8 @@
 #include "fenajoutattribut.h"
 #include "attribut.h"
 
+static QList<Attribut> listAtt;
+
 FenPrincipale::FenPrincipale()
 {
     QTabWidget *tab = new QTabWidget;
@@ -93,10 +95,10 @@ FenPrincipale::FenPrincipale()
         attributs = new QTableWidget(0,4);
         attributs->setHorizontalHeaderLabels(headers);
         attributs->setColumnHidden(3,true);
+        connect(attributs,SIGNAL(cellClicked(int,int)),this,SLOT(modifSuppAttribut(int,int)));
 
         QPushButton *ajouterAtt = new QPushButton("Ajouter un attribut");
-        FenAjoutAttribut *fenAtt = new FenAjoutAttribut(this);
-        connect(ajouterAtt,SIGNAL(clicked(bool)),fenAtt,SLOT(exec()));
+        connect(ajouterAtt,SIGNAL(clicked(bool)),this,SLOT(ouvrirFenAjout()));
 
         QHBoxLayout *boutonsAtt = new QHBoxLayout;
         boutonsAtt->setAlignment(Qt::AlignRight);
@@ -137,29 +139,72 @@ void FenPrincipale::actualiserHeader(QString newNomClass){
     oldNomClass = newNomClass;
 }
 
-void FenPrincipale::recupererAttribut(Attribut *att){
+void FenPrincipale::ouvrirFenAjout(Attribut att, int row){
+    FenAjoutAttribut *fenAtt = new FenAjoutAttribut(this, att, row);
+    fenAtt->exec();
+
+}
+
+void FenPrincipale::ouvrirFenAjout(){
+    Attribut null;
+    FenAjoutAttribut *fenAtt = new FenAjoutAttribut(this, att, -1);
+    fenAtt->exec();
+
+}
+
+void FenPrincipale::recupererAttribut(Attribut att){
     int pos = attributs->rowCount();
 
     QPixmap editPixmap("..\\test\\edit.png");
     editPixmap.scaled(40,40);
+    QIcon editIcon = QIcon(editPixmap);
+    /*
     QPushButton *editBtn = new QPushButton;
     editBtn->setIcon(QIcon(editPixmap));
+    editBtn->setEnabled(false);
+    */
 
     QPixmap deletePixmap("..\\test\\delete.png");
     deletePixmap.scaled(40,40);
+    QIcon deleteIcon = QIcon(deletePixmap);
+    /*
     QPushButton *deleteBtn = new QPushButton;
     deleteBtn->setIcon(QIcon(deletePixmap));
+    deleteBtn->setEnabled(false);
+    */
 
     attributs->setRowCount(pos+1);
-    attributs->setItem(pos,0,new QTableWidgetItem(att->nomAtt()));
+    attributs->setItem(pos,0,new QTableWidgetItem(att.nomAtt()));
     attributs->itemAt(pos,0)->setTextAlignment(Qt::AlignCenter);
-    //attributs->setItem(pos,1,new QTableWidgetItem(editIcon, ""));
-    //attributs->setItem(pos,2,new QTableWidgetItem(deleteIcon, ""));
-    attributs->setCellWidget(pos,1,(QWidget *)editBtn);
-    attributs->setCellWidget(pos,2,deleteBtn);
 
-    uintptr_t attAdress = (uintptr_t)att;
-    attributs->setItem(pos,3,new QTableWidgetItem(attAdress));
+    attributs->setItem(pos,1,new QTableWidgetItem(editIcon, "Modifier"));
+    attributs->setItem(pos,2,new QTableWidgetItem(deleteIcon, "Supprimer"));
+
+    //attributs->setCellWidget(pos,1,editBtn);
+    //attributs->setCellWidget(pos,2,deleteBtn);
+    attributs->setItem(pos,3,new QTableWidgetItem(QString::number(listAtt.count())));
+    listAtt.append(att);
+}
+
+void FenPrincipale::updateAttribut(int row, Attribut att){
+    pos = attributs->itemAt(row,3);
+    listAtt.at(pos) = att;
+
+    attributs->itemAt(row,0)->text() = att.nomAtt();
+}
+
+void FenPrincipale::modifSuppAttribut(int row, int col){
+    int pos = attributs->item(row,3)->text().toInt();
+    Attribut att = listAtt.at(pos);
+
+    if(col==0){
+        return;
+    }
+
+    if(col==1){
+        FenAjoutAttribut *fen = new FenAjoutAttribut(this,att,row);
+        fen->exec();
+    }
 }
 
 void FenPrincipale::genererCode(){
