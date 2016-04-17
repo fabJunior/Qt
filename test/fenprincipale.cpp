@@ -2,18 +2,13 @@
 
 FenPrincipale::FenPrincipale()
 {
-    QWidget *zoneCentrale = new QWidget;
+    QMdiArea *zoneCentrale = new QMdiArea;
 
-    QLineEdit *nom = new QLineEdit;
-    QLineEdit *prenom = new QLineEdit;
-    QLineEdit *age = new QLineEdit;
+    QTextEdit *zoneTexte1 = new QTextEdit;
+    QTextEdit *zoneTexte2 = new QTextEdit;
 
-    QFormLayout *layout = new QFormLayout;
-    layout->addRow("Votre nom", nom);
-    layout->addRow("Votre prénom", prenom);
-    layout->addRow("Votre âge", age);
-
-    zoneCentrale->setLayout(layout);
+    QMdiSubWindow *sousFenetre1 = zoneCentrale->addSubWindow(zoneTexte1);
+    QMdiSubWindow *sousFenetre2 = zoneCentrale->addSubWindow(zoneTexte2);
 
     setCentralWidget(zoneCentrale);
 }
