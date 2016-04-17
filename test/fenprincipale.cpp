@@ -11,6 +11,9 @@ FenPrincipale::FenPrincipale()
 
     QAction *actionQuitter = new QAction("&Quitter", this);
     menuFichier->addAction(actionQuitter);
+    connect(actionQuitter, SIGNAL(triggered()), qApp, SLOT(quit()));
+    actionQuitter->setShortcut(QKeySequence("Ctrl+Q"));
+    actionQuitter->setIcon(QIcon("..\\test\\quitter.png"));
 
     QMenu *menuEdition = menuBar()->addMenu("&Edition");
     QMenu *menuAffichage = menuBar()->addMenu("&Affichage");
