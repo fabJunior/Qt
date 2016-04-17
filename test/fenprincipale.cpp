@@ -2,13 +2,18 @@
 
 FenPrincipale::FenPrincipale()
 {
-    QMdiArea *zoneCentrale = new QMdiArea;
+    QMenu *menuFichier = menuBar()->addMenu("&Fichier");
 
-    QTextEdit *zoneTexte1 = new QTextEdit;
-    QTextEdit *zoneTexte2 = new QTextEdit;
+    QMenu *fichiersRecents = menuFichier->addMenu("Fichiers &récents");
+    fichiersRecents->addAction("Fichier bidon 1.txt");
+    fichiersRecents->addAction("Fichier bidon 2.txt");
+    fichiersRecents->addAction("Fichier bidon 3.txt");
 
-    QMdiSubWindow *sousFenetre1 = zoneCentrale->addSubWindow(zoneTexte1);
-    QMdiSubWindow *sousFenetre2 = zoneCentrale->addSubWindow(zoneTexte2);
+    QAction *actionQuitter = new QAction("&Quitter", this);
+    menuFichier->addAction(actionQuitter);
 
-    setCentralWidget(zoneCentrale);
+    QMenu *menuEdition = menuBar()->addMenu("&Edition");
+    QMenu *menuAffichage = menuBar()->addMenu("&Affichage");
+
+
 }
