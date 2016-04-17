@@ -2,7 +2,7 @@
 #include "attribut.h"
 #include "fenprincipale.h"
 
-FenAjoutAttribut::FenAjoutAttribut(QWidget *parent) : QDialog(parent)
+FenAjoutAttribut::FenAjoutAttribut(FenPrincipale *parent) : QDialog(parent), m_Parent(parent)
 {
     m_Nom = new QLineEdit;
     m_Type = new QLineEdit;
@@ -63,6 +63,23 @@ void FenAjoutAttribut::envoyerAttribut(){
         return;
     }
 
-    Attribut *att = new Attribut;
-    att->setNomAtt(m_Nom->text());
+    Attribut att(m_Nom->text(),m_Type->text());
+    m_Parent->recupererAttribut(&att);
+
+    reset();
+
+    close();
+}
+
+void FenAjoutAttribut::reset(){
+    m_Nom->setText("");
+    m_Type->setText("");
+
+    m_BAsc->setChecked(true);
+    m_Asc->setText("");
+    m_Asc->setEnabled(True);
+
+    m_BSetter->setChecked(true);
+    m_Setter->setText("");
+    m_Setter->setEnabled(True);
 }

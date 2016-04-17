@@ -1,6 +1,6 @@
 #include "attribut.h"
 
-Attribut::attribut(QString nomAtt,
+Attribut::Attribut(QString nomAtt,
                    QString type,
                    bool bAsc,
                    QString asc,
@@ -16,7 +16,7 @@ Attribut::attribut(QString nomAtt,
 
 }
 
-Attribut::~attribut()
+Attribut::~Attribut()
 {
 
 }

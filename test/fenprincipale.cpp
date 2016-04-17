@@ -89,9 +89,10 @@ FenPrincipale::FenPrincipale()
     //PAGE 2
 
         QStringList headers;
-        headers <<"Attribut" << "Modifier" << "Supprimer";
-        attributs = new QTableWidget(0,3);
+        headers <<"Attribut" << "Modifier" << "Supprimer" << "Adresse";
+        attributs = new QTableWidget(0,4);
         attributs->setHorizontalHeaderLabels(headers);
+        attributs->setColumnHidden(3,true);
 
         QPushButton *ajouterAtt = new QPushButton("Ajouter un attribut");
         FenAjoutAttribut *fenAtt = new FenAjoutAttribut(this);
@@ -136,6 +137,31 @@ void FenPrincipale::actualiserHeader(QString newNomClass){
     oldNomClass = newNomClass;
 }
 
+void FenPrincipale::recupererAttribut(Attribut *att){
+    int pos = attributs->rowCount();
+
+    QPixmap editPixmap("..\\test\\edit.png");
+    editPixmap.scaled(40,40);
+    QPushButton *editBtn = new QPushButton;
+    editBtn->setIcon(QIcon(editPixmap));
+
+    QPixmap deletePixmap("..\\test\\delete.png");
+    deletePixmap.scaled(40,40);
+    QPushButton *deleteBtn = new QPushButton;
+    deleteBtn->setIcon(QIcon(deletePixmap));
+
+    attributs->setRowCount(pos+1);
+    attributs->setItem(pos,0,new QTableWidgetItem(att->nomAtt()));
+    attributs->itemAt(pos,0)->setTextAlignment(Qt::AlignCenter);
+    //attributs->setItem(pos,1,new QTableWidgetItem(editIcon, ""));
+    //attributs->setItem(pos,2,new QTableWidgetItem(deleteIcon, ""));
+    attributs->setCellWidget(pos,1,(QWidget *)editBtn);
+    attributs->setCellWidget(pos,2,deleteBtn);
+
+    uintptr_t attAdress = (uintptr_t)att;
+    attributs->setItem(pos,3,new QTableWidgetItem(attAdress));
+}
+
 void FenPrincipale::genererCode(){
     if(nomClass->text().isEmpty()){
         qWarning("Aucun nom donné à la classe");
@@ -170,7 +196,7 @@ void FenPrincipale::genererCode(){
     }
 
     if(genererDestruct->isChecked()){
-        code += "    virtual ~" + nomClass->text() + "();\n    ";
+        code += "    ~" + nomClass->text() + "();\n    ";
     }
 
     code += "\n    \n    protected :\n    \n    \n    private:\n    \n};";

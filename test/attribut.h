@@ -6,13 +6,13 @@
 class Attribut
 {
     public:
-    attribut(QString nomAtt,
+    Attribut(QString nomAtt,
              QString type,
              bool bAsc = false,
              QString asc = NULL,
              bool bSetter = false,
              QString setter = NULL);
-    virtual ~attribut();
+    ~Attribut();
 
     void setNomAtt(QString newNom);
     QString nomAtt();

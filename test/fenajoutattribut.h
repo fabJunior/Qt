@@ -1,6 +1,7 @@
 #ifndef FENAJOUTATTRIBUT_H
 #define FENAJOUTATTRIBUT_H
 
+#include "fenprincipale.h"
 #include <QtWidgets>
 
 class FenAjoutAttribut : public QDialog
@@ -8,12 +9,16 @@ class FenAjoutAttribut : public QDialog
     Q_OBJECT
 
     public:
-        FenAjoutAttribut(QWidget *parent);
+        FenAjoutAttribut(FenPrincipale *parent);
 
     public slots:
         void envoyerAttribut();
 
     private:
+        void reset();
+
+        FenPrincipale *m_Parent;
+
         QLineEdit *m_Nom;
 
         QLineEdit *m_Type;

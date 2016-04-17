@@ -1,6 +1,7 @@
 #ifndef FENPRINCIPALE_H
 #define FENPRINCIPALE_H
 
+#include "attribut.h"
 #include <QtWidgets>
 
 class FenPrincipale : public QWidget
@@ -9,6 +10,7 @@ class FenPrincipale : public QWidget
 
     public:
         FenPrincipale();
+        void recupererAttribut(Attribut *att);
 
     public slots:
         void genererCode();
