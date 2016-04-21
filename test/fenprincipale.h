@@ -8,6 +8,7 @@ class FenPrincipale : public QWidget
 {
     Q_OBJECT
 
+
     public:
         FenPrincipale();
         void recupererAttribut(Attribut *att);
