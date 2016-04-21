@@ -7,7 +7,7 @@ FenPrincipale::FenPrincipale()
 {
     QTabWidget *tab = new QTabWidget;
     QWidget *pageDefOptCom = new QWidget;
-    tab->addTab(pageDefOptCom,"Général");
+    tab->addTab(pageDefOptCom,tr("Général"));
 
     //PAGE 1
         //Box DEF
@@ -15,14 +15,14 @@ FenPrincipale::FenPrincipale()
         classMere = new QLineEdit;
 
         QFormLayout *definitionLayout = new QFormLayout;
-        definitionLayout->addRow("&Nom :", nomClass);
-        definitionLayout->addRow("Classe &mère :", classMere);
+        definitionLayout->addRow(tr("&Nom :"), nomClass);
+        definitionLayout->addRowtr(("Classe &mère :"), classMere);
 
-        QGroupBox *groupDef = new QGroupBox("Définition de la classe");
+        QGroupBox *groupDef = new QGroupBox(tr("Définition de la classe"));
         groupDef->setLayout(definitionLayout);
 
         //Box OPTIONS
-        protect = new QCheckBox("Protéger le &header contre les inclusions multiples");
+        protect = new QCheckBox(tr("Protéger le &header contre les inclusions multiples"));
         protect->setChecked(true);
 
         QLabel *fleche = new QLabel;
@@ -36,8 +36,8 @@ FenPrincipale::FenPrincipale()
         connect(protect,SIGNAL(clicked(bool)),header,SLOT(setVisible(bool)));
         connect(protect,SIGNAL(clicked(bool)),fleche,SLOT(setVisible(bool)));
 
-        genererConstruct = new QCheckBox("Générer un &constructeur par défaut");
-        genererDestruct = new QCheckBox("Générer un &destructeur");
+        genererConstruct = new QCheckBox(tr("Générer un &constructeur par défaut"));
+        genererDestruct = new QCheckBox(tr("Générer un &destructeur");
 
         QVBoxLayout *optionsLayout = new QVBoxLayout;
         optionsLayout->addWidget(protect);
@@ -45,7 +45,7 @@ FenPrincipale::FenPrincipale()
         optionsLayout->addWidget(genererConstruct);
         optionsLayout->addWidget(genererDestruct);
 
-        QGroupBox *groupOpt = new QGroupBox("Options");
+        QGroupBox *groupOpt = new QGroupBox(tr("Options"));
         groupOpt->setLayout(optionsLayout);
 
         //Box Com
@@ -55,18 +55,18 @@ FenPrincipale::FenPrincipale()
         roleClass = new QTextEdit;
 
         QFormLayout *comLayout = new QFormLayout;
-        comLayout->addRow("&Auteur :", auteur);
-        comLayout->addRow("Da&te de création :", dateCreation);
-        comLayout->addRow("&Rôle de la classe :", roleClass);
+        comLayout->addRow(tr("&Auteur :"), auteur);
+        comLayout->addRow(tr("Da&te de création :"), dateCreation);
+        comLayout->addRow(tr("&Rôle de la classe :"), roleClass);
 
-        groupCom = new QGroupBox("Ajouter des commentaires");
+        groupCom = new QGroupBox(tr("Ajouter des commentaires"));
         groupCom->setCheckable(true);
         groupCom->setChecked(false);
         groupCom->setLayout(comLayout);
 
         //Boutons
-        generer = new QPushButton("Générer !");
-        quitter = new QPushButton("Quitter");
+        generer = new QPushButton(tr("Générer !"));
+        quitter = new QPushButton(tr("Quitter"));
 
         QHBoxLayout *boutons = new QHBoxLayout;
         boutons->setAlignment(Qt::AlignRight);
@@ -84,17 +84,17 @@ FenPrincipale::FenPrincipale()
 
 
     QWidget *pageAttributs = new QWidget;
-    tab->addTab(pageAttributs,"Attributs");
+    tab->addTab(pageAttributs,tr("Attributs"));
 
     //PAGE 2
 
         QStringList headers;
-        headers <<"Attribut" << "Modifier" << "Supprimer" << "Adresse";
+        headers << tr("Attribut") << tr("Modifier") << tr("Supprimer") << tr("Adresse");
         attributs = new QTableWidget(0,4);
         attributs->setHorizontalHeaderLabels(headers);
         attributs->setColumnHidden(3,true);
 
-        QPushButton *ajouterAtt = new QPushButton("Ajouter un attribut");
+        QPushButton *ajouterAtt = new QPushButton(tr("Ajouter un attribut"));
         FenAjoutAttribut *fenAtt = new FenAjoutAttribut(this);
         connect(ajouterAtt,SIGNAL(clicked(bool)),fenAtt,SLOT(exec()));
 
@@ -164,17 +164,17 @@ void FenPrincipale::recupererAttribut(Attribut *att){
 
 void FenPrincipale::genererCode(){
     if(nomClass->text().isEmpty()){
-        qWarning("Aucun nom donné à la classe");
-        QMessageBox::critical(this, "Erreur", "Veuillez entrer au moins un nom de classe");
+        qWarning(tr("Aucun nom donné à la classe"));
+        QMessageBox::critical(this, tr("Erreur"), tr("Veuillez entrer au moins un nom de classe"));
         return;
     }
 
     QString code = "";
 
     if(groupCom->isChecked()){
-        code += "/*\nAuteur : " + auteur->text() +
-                "\nDate de création : " +  dateCreation->date().toString() +
-                "\n\nRôle :\n" + roleClass->toPlainText() + "\n*/\n\n\n";
+        code += tr("/*\nAuteur : ") + auteur->text() +
+                tr("\nDate de création : ") +  dateCreation->date().toString() +
+                tr("\n\nRôle :\n") + roleClass->toPlainText() + "\n*/\n\n\n";
     }
 
     if(protect->isChecked()){

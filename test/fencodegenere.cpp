@@ -8,7 +8,7 @@ FenCodeGenere::FenCodeGenere(QString &code, QWidget *parent =0) : QDialog(parent
     m_codeGenere->setFont(QFont("Courier"));
     m_codeGenere->setLineWrapMode(QTextEdit::NoWrap);
 
-    m_fermer = new QPushButton("Fermer");
+    m_fermer = new QPushButton(tr("Fermer"));
 
     QVBoxLayout *layoutPrincipal = new QVBoxLayout;
     layoutPrincipal->addWidget(m_codeGenere);

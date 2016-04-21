@@ -11,3 +11,5 @@ HEADERS += \
     fencodegenere.h \
     attribut.h \
     fenajoutattribut.h
+
+TRANSLATIONS = test_en.ts test_es.ts
